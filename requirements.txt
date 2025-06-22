@@ -1,0 +1,11 @@
+langchain
+langchain-community
+langchain-openai
+openai
+qdrant-client
+fastapi
+uvicorn
+pydantic
+tiktoken
+python-dotenv
+requests
