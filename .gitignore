@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Virtualenv
+venv/
+ENV/
+env/
+.venv/
+
+# VSCode
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# macOS
+.DS_Store
+
+# Environment variables
+.env
+.env.*
+
+# Qdrant local storage (if used locally)
+qdrant_storage/
+
+# Pyright, Mypy, Pylint, etc.
+.mypy_cache/
+.pyright/
+.pytest_cache/
+.cache/
+.coverage
+
+# Test artifacts
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+
+# Node (if frontend 같이 있는 경우)
+node_modules/
+npm-debug.log*
+
+# FastAPI static/docs if built locally
+static/
+docs/
+
+# Others (optional)
+*.bak
+*.swp
