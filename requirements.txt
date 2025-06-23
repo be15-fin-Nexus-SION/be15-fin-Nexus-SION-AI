@@ -9,3 +9,6 @@ pydantic
 tiktoken
 python-dotenv
 requests
+sentence-transformers
+langchain-huggingface
+huggingface_hub
