@@ -1,0 +1,27 @@
+{
+  "EI": {
+    "SIMPLE": 3,
+    "MEDIUM": 4,
+    "COMPLEX": 6
+  },
+  "EO": {
+    "SIMPLE": 4,
+    "MEDIUM": 5,
+    "COMPLEX": 7
+  },
+  "EQ": {
+    "SIMPLE": 3,
+    "MEDIUM": 4,
+    "COMPLEX": 6
+  },
+  "ILF": {
+    "SIMPLE": 7,
+    "MEDIUM": 10,
+    "COMPLEX": 15
+  },
+  "EIF": {
+    "SIMPLE": 5,
+    "MEDIUM": 7,
+    "COMPLEX": 10
+  }
+}

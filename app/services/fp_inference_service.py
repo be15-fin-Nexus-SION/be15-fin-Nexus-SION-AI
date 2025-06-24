@@ -3,7 +3,7 @@ from app.chains.chains import rag_chain, fallback_chain
 from app.utils.parser import extract_result_text, postprocess_llm_output
 from app.models.schema import FPResult
 
-def run_fp_inference(ocr_text: str) -> list[FPResult]:
+async def run_fp_inference(ocr_text: str) -> list[FPResult]:
     raw_output = None
     search_results = retriever.invoke(ocr_text)
     use_fallback = not search_results or len(search_results) == 0
@@ -37,4 +37,9 @@ def run_fp_inference(ocr_text: str) -> list[FPResult]:
             ))
         except Exception as e:
             print("항목 파싱 실패:", item, "사유:", e)
+
+    print("[최종 결과 FPResult 리스트]:")
+    for fp in result:
+        print(fp.model_dump())  # Pydantic v2 기준, v1이면 .dict()
+
     return result
