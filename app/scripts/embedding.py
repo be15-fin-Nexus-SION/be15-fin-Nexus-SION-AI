@@ -10,7 +10,7 @@ from qdrant_client import QdrantClient
 load_dotenv()
 
 # JSON 로딩 및 검증
-with open("fp_examples.json", "r", encoding="utf-8") as f:
+with open("app/data/fp_examples.json", "r", encoding="utf-8") as f:
     raw_examples = json.load(f)
 
 examples = []
