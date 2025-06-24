@@ -1,14 +1,26 @@
-langchain
-langchain-community
-langchain-openai
-openai
-qdrant-client
+# .env 로딩
+python-dotenv
+
+# FastAPI 백엔드
 fastapi
 uvicorn
 pydantic
-tiktoken
-python-dotenv
 requests
-sentence-transformers
+
+# LangChain 핵심
+langchain
+langchain-community
 langchain-huggingface
+
+# HuggingFace 모델
 huggingface_hub
+
+# 임베딩 및 백터스토어
+sentence-transformers
+qdrant-client
+
+# 기타
+tiktoken
+
+# Gemini API 핵심
+google-ai-generativelanguage==0.6.18
