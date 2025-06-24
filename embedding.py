@@ -3,50 +3,56 @@ import os
 import json
 
 from langchain_community.vectorstores import Qdrant
-# from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.schema import Document
 from qdrant_client import QdrantClient
 
 load_dotenv()
 
+# JSON 로딩 및 검증
 with open("fp_examples.json", "r", encoding="utf-8") as f:
-    examples = json.load(f)
+    raw_examples = json.load(f)
 
-docs = [
-    Document(
-        page_content=ex["description"],
-        metadata={
-            "function_name": ex["function_name"],
-            "fp_type": ex["fp_type"],
-            "complexity": ex["complexity"]
-        }
-    )
-    for ex in examples
-]
+examples = []
+for ex in raw_examples:
+    try:
+        examples.append(Document(
+            page_content=f"{ex['description']} (판단 근거: {ex.get('rationale', '')})",
+            metadata={
+                "function_name": ex["function_name"],
+                "fp_type": ex["fp_type"],
+                "complexity": ex["complexity"],
+                "estimated_det": ex.get("estimated_det"),
+                "estimated_ftr": ex.get("estimated_ftr"),
+                "rationale": ex.get("rationale")
+            }
+        ))
+    except KeyError as e:
+        print(f"⚠ 예제 스킵 - 필드 누락: {e}, 항목: {ex}")
+        continue
 
-# embedding = OpenAIEmbeddings()
+# 임베딩 설정
 embedding = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
-# Qdrant Client 수동 연결
+# Qdrant 연결 및 컬렉션 재생성
 client = QdrantClient(host="localhost", port=6333)
+collection_name = "fp_examples"
 
-# 컬렉션 삭제 후 재생성 → 항상 최신 상태 보장
 client.recreate_collection(
-    collection_name="fp_examples",
+    collection_name=collection_name,
     vectors_config={
-        "size": 384,         # 모델 벡터 차원수 (all-MiniLM-L6-v2는 384차원)
+        "size": 384,
         "distance": "Cosine"
     }
 )
 
 vectorstore = Qdrant(
     client=client,
-    collection_name="fp_examples",
+    collection_name=collection_name,
     embeddings=embedding
 )
-vectorstore.add_documents(docs)
+vectorstore.add_documents(examples)
 
 print("[Qdrant 임베딩 업로드 완료]")
