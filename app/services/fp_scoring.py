@@ -30,12 +30,6 @@ def _to_dict(item: Union[FPResult, Dict]) -> Dict:
 
 
 def calculate_fp_score(functions: List[Union[FPResult, Dict]]) -> Tuple[int, List[Dict]]:
-    """
-    기능 리스트를 입력 받아 각 기능별 FP 점수 계산 및 총합 반환
-
-    :param functions: 기능 추론 결과 리스트 (function_name, fp_type, complexity 등 포함)
-    :return: (총점수, 기능별 점수 포함 리스트)
-    """
 
     total_score = 0
     scored_functions = []
@@ -70,5 +64,4 @@ def calculate_fp_score(functions: List[Union[FPResult, Dict]]) -> Tuple[int, Lis
             print(f"[에러] 인덱스 {index} 기능 점수 계산 실패: {e} → 원본: {raw_func}")
             continue
 
-    print(f"[총 FP 점수]: {total_score}")
     return total_score, scored_functions

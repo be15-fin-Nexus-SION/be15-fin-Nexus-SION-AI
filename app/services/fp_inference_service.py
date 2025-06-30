@@ -2,23 +2,26 @@ from app.chains.retriever import retriever
 from app.chains.chains import rag_chain, fallback_chain
 from app.utils.parser import extract_result_text, postprocess_llm_output
 from app.models.schema import FPResult
+import asyncio
 
 async def run_fp_inference(ocr_text: str) -> list[FPResult]:
-    raw_output = None
-    search_results = retriever.invoke(ocr_text)
-    use_fallback = not search_results or len(search_results) == 0
+    # raw_output = None
+    search_results = await asyncio.to_thread(retriever.invoke, ocr_text)
+    # use_fallback = not search_results or len(search_results) == 0
     print("검색 결과 문서 수:", len(search_results))
 
-    if use_fallback:
-        print("벡터 검색 결과 없음 → fallback 프롬프트 사용")
-        raw_output = fallback_chain.invoke({"question": ocr_text})
-    else:
-        print("벡터 검색 성공 → RAG 실행")
-        raw_output = rag_chain.invoke({"query": ocr_text})
-        result_text = extract_result_text(raw_output)
-        if not result_text.strip():
-            print("RAG 응답 없음 → fallback 실행")
-            raw_output = fallback_chain.invoke({"question": ocr_text})
+    raw_output = await asyncio.to_thread(rag_chain.invoke, {"query": ocr_text})
+
+    # if use_fallback:
+    #     print("벡터 검색 결과 없음 → fallback 프롬프트 사용")
+    #     raw_output = fallback_chain.invoke({"question": ocr_text})
+    # else:
+    #     print("벡터 검색 성공 → RAG 실행")
+    #     raw_output = rag_chain.invoke({"query": ocr_text})
+    #     # result_text = extract_result_text(raw_output)
+    #     # if not result_text.strip():
+    #     #     print("RAG 응답 없음 → fallback 실행")
+    #         # raw_output = fallback_chain.invoke({"question": ocr_text})
 
     print("LLM 응답 원문:\n", raw_output)
     result_text = extract_result_text(raw_output)
