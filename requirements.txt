@@ -15,12 +15,18 @@ langchain-huggingface
 # HuggingFace 모델
 huggingface_hub
 
-# 임베딩 및 백터스토어
+# 임베딩 및 벡터스토어
 sentence-transformers
 qdrant-client
+
+# Gemini API
+google-ai-generativelanguage==0.6.18
 
 # 기타
 tiktoken
 
-# Gemini API 핵심
-google-ai-generativelanguage==0.6.18
+# OCR 및 PDF to Image 변환
+pytesseract
+pdf2image
+Pillow
+python-multipart

@@ -1,18 +1,17 @@
-# models/response.py
-
 from pydantic import BaseModel
-from typing import List, Literal
+from typing import List, Optional
 
-class FPFunctionScore(BaseModel):
+class FPFunction(BaseModel):
     function_name: str
     description: str
-    fp_type: Literal["EI", "EO", "EQ", "ILF", "EIF"]
-    complexity: Literal["SIMPLE", "MEDIUM", "COMPLEX"]
-    estimated_ftr: int
-    estimated_det: int
+    fp_type: str
+    complexity: str
+    estimated_det: Optional[int] = None
+    estimated_ftr: Optional[int] = None
     score: int
 
+
 class FPInferResponse(BaseModel):
-    project_id: int
-    functions: List[FPFunctionScore]
+    project_id: str
+    functions: List[FPFunction]
     total_fp_score: int
