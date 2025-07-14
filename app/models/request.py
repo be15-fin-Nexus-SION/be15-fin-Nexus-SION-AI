@@ -10,3 +10,11 @@ class OCRItem(BaseModel):
 class FPInferRequest(BaseModel):
     project_id: int
     ocr_items: List[OCRItem]
+
+class FPVectorItem(BaseModel):
+    function_name: str
+    description: str
+    fp_type: str
+    complexity: str
+    det: int
+    ftr: int
