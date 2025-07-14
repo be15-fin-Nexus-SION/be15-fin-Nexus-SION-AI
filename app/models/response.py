@@ -15,3 +15,16 @@ class FPInferResponse(BaseModel):
     project_id: str
     functions: List[FPFunction]
     total_fp_score: int
+
+class FunctionScore(BaseModel):
+    functionName: str
+    description: str
+    fpType: str
+    complexity: str
+    det: int
+    ftrOrRet: int
+    stacks: List[str]
+
+class FreelencerFpInferResponse(BaseModel):
+    functions: List[FunctionScore]
+

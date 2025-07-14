@@ -12,3 +12,10 @@ class FPResult(BaseModel):
     complexity: str
     estimated_det: Optional[int] = None
     estimated_ftr: Optional[int] = None
+
+class RawFunctionBlock(BaseModel):
+    function_name: str
+    description: str
+    stacks: List[str]
+
+
