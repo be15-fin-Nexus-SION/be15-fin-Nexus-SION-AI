@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-import os
 import json
 
 from langchain_community.vectorstores import Qdrant
@@ -17,14 +16,13 @@ examples = []
 for ex in raw_examples:
     try:
         examples.append(Document(
-            page_content=f"{ex['description']} (판단 근거: {ex.get('rationale', '')})",
+            page_content = f"{ex['function_name']} - {ex['description']}",
             metadata={
                 "function_name": ex["function_name"],
                 "fp_type": ex["fp_type"],
                 "complexity": ex["complexity"],
                 "estimated_det": ex.get("estimated_det"),
-                "estimated_ftr": ex.get("estimated_ftr"),
-                "rationale": ex.get("rationale")
+                "estimated_ftr": ex.get("estimated_ftr")
             }
         ))
     except KeyError as e:
