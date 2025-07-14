@@ -3,9 +3,15 @@ from app.models.response import FPInferResponse
 from app.services.fp_inference_service import run_fp_inference
 from app.services.fp_scoring import calculate_fp_score
 from pdf2image import convert_from_bytes
-import pytesseract
 import asyncio
 import logging
+
+from app.services.ocr_extractor import extract_function_sentences_from_pdf
+
+import multiprocessing
+
+if __name__ == "__main__":
+    multiprocessing.set_start_method("spawn")
 
 router = APIRouter()
 
@@ -28,16 +34,10 @@ async def fp_infer_with_pdf(
         if not images:
             raise HTTPException(status_code=400, detail="PDF에서 이미지를 추출할 수 없습니다.")
 
-        ocr_texts = []
-        for idx, image in enumerate(images):
-            text = pytesseract.image_to_string(image, lang="kor+eng")
-            sentences = [line.strip() for line in text.split("\n") if line.strip()]
-            ocr_texts.extend(sentences)
-            logger.info(f"OCR 완료 - 페이지 {idx + 1}, 문장 수: {len(sentences)}")
-
+        ocr_texts = extract_function_sentences_from_pdf(content)
         logger.info(f"OCR 전체 문장 수: {len(ocr_texts)}")
 
-        semaphore = asyncio.Semaphore(5)
+        semaphore = asyncio.Semaphore(4)
 
         # 병렬로 처리할 함수 정의 (idx 포함)
         async def safe_run(idx: int, sentence: str):
