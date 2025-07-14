@@ -27,7 +27,7 @@ prompt_template = PromptTemplate.from_template("""
     "fp_type": "EI" //fp_type은 필수적으로 넣어주세요,
     "complexity": "SIMPLE" //complexity은 필수적으로 넣어주세요,
     "estimated_ftr": 2, // 숫자만 입력. 예: 1, 2, 3 등
-    "estimated_ftr": 1, // 숫자만 입력. 예: 1, 2, 3 등
+    "estimated_det": 1, // 숫자만 입력. 예: 1, 2, 3 등
   }}
 ]
 
