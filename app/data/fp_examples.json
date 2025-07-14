@@ -5,8 +5,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "직무발령 등록",
@@ -14,8 +13,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "인사현황 엑셀 다운로드",
@@ -23,8 +21,7 @@
     "fp_type": "EO",
     "complexity": "SIMPLE",
     "estimated_det": 5,
-    "estimated_ftr": 3,
-    "rationale": "처리 로직이 포함되어 출력이 중심이므로 DET 5, FTR 3으로 추정됨"
+    "estimated_ftr": 3
   },
   {
     "function_name": "희망 직무 접수",
@@ -32,8 +29,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "보수 테이블 관리",
@@ -41,8 +37,7 @@
     "fp_type": "ILF",
     "complexity": "COMPLEX",
     "estimated_det": 7,
-    "estimated_ftr": 1,
-    "rationale": "내부 논리 파일에 대한 수정/조회가 포함되어 DET 7, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "급여명세서 조회",
@@ -50,8 +45,7 @@
     "fp_type": "EQ",
     "complexity": "MEDIUM",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "시간 외 수당 계산",
@@ -59,8 +53,7 @@
     "fp_type": "EO",
     "complexity": "COMPLEX",
     "estimated_det": 5,
-    "estimated_ftr": 3,
-    "rationale": "처리 로직이 포함되어 출력이 중심이므로 DET 5, FTR 3으로 추정됨"
+    "estimated_ftr": 3
   },
   {
     "function_name": "직무 코드 관리",
@@ -68,8 +61,7 @@
     "fp_type": "ILF",
     "complexity": "MEDIUM",
     "estimated_det": 7,
-    "estimated_ftr": 1,
-    "rationale": "내부 논리 파일에 대한 수정/조회가 포함되어 DET 7, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "직원 검색 및 발령",
@@ -77,8 +69,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "급여 계산",
@@ -86,8 +77,7 @@
     "fp_type": "EO",
     "complexity": "COMPLEX",
     "estimated_det": 5,
-    "estimated_ftr": 3,
-    "rationale": "처리 로직이 포함되어 출력이 중심이므로 DET 5, FTR 3으로 추정됨"
+    "estimated_ftr": 3
   },
   {
     "function_name": "공통 요구사항",
@@ -95,8 +85,7 @@
     "fp_type": "EI",
     "complexity": "COMPLEX",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "인사기록 관리",
@@ -104,8 +93,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "개인정보 조회",
@@ -113,8 +101,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "희망직무 관리",
@@ -122,8 +109,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "기관직무 현황",
@@ -131,8 +117,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "인사현황 임의 출력",
@@ -140,8 +125,7 @@
     "fp_type": "EQ",
     "complexity": "MEDIUM",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "직무발령",
@@ -149,8 +133,7 @@
     "fp_type": "EI",
     "complexity": "COMPLEX",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "직무코드 관리",
@@ -158,8 +141,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "교육훈련 관리",
@@ -167,8 +149,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "직무기술서 자료 관리",
@@ -176,8 +157,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "직무소개팅 자료 관리",
@@ -185,8 +165,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "보수테이블 관리",
@@ -194,8 +173,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "임금월봉 관리",
@@ -203,8 +181,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "월별직무급 및 근속급 조회",
@@ -212,8 +189,7 @@
     "fp_type": "EQ",
     "complexity": "SIMPLE",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "임금피크제대상자 관리",
@@ -221,8 +197,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "대보험 관리",
@@ -230,8 +205,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "급여명세서 조회",
@@ -239,8 +213,7 @@
     "fp_type": "EQ",
     "complexity": "MEDIUM",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "퇴직관리",
@@ -248,8 +221,7 @@
     "fp_type": "EI",
     "complexity": "MEDIUM",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   },
   {
     "function_name": "사용자 및 방문자 이용 통계",
@@ -257,8 +229,7 @@
     "fp_type": "EQ",
     "complexity": "COMPLEX",
     "estimated_det": 3,
-    "estimated_ftr": 1,
-    "rationale": "조회 위주 기능이며 외부 참조가 적으므로 DET 3, FTR 1로 추정됨"
+    "estimated_ftr": 1
   },
   {
     "function_name": "로그이력",
@@ -266,7 +237,6 @@
     "fp_type": "EI",
     "complexity": "SIMPLE",
     "estimated_det": 4,
-    "estimated_ftr": 2,
-    "rationale": "입력 항목이 다수 존재하고 내부 파일 참조가 필요하여 DET 4, FTR 2로 추정됨"
+    "estimated_ftr": 2
   }
 ]

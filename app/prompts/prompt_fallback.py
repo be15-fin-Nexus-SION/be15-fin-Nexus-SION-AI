@@ -22,5 +22,5 @@ prompt_fallback = PromptTemplate.from_template("""
 - "estimated_det", "estimated_ftr": 대략적인 숫자 추정 (0 이상 정수)
 
 요구사항 문장:
-{question}
+{query}
 """)
