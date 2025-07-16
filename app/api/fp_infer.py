@@ -15,9 +15,8 @@ if __name__ == "__main__":
 
 router = APIRouter()
 
-logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
-
+logger = logging.getLogger()  # root logger
 
 @router.post("/fp-infer", response_model=FPInferResponse)
 async def fp_infer_with_pdf(
@@ -34,7 +33,7 @@ async def fp_infer_with_pdf(
         if not images:
             raise HTTPException(status_code=400, detail="PDF에서 이미지를 추출할 수 없습니다.")
 
-        ocr_texts = extract_function_sentences_from_pdf(content)
+        ocr_texts = await extract_function_sentences_from_pdf(content)
         logger.info(f"OCR 전체 문장 수: {len(ocr_texts)}")
 
         semaphore = asyncio.Semaphore(4)
@@ -61,7 +60,11 @@ async def fp_infer_with_pdf(
 
         logger.info(f"FP 추론 전체 완료 - 총 결과 수: {len(all_results)}")
 
-        total_score, scored_functions = calculate_fp_score(all_results)
+        logger.info(f"[디버그]: {all_results}")
+
+        filtered_results = filter_top_n_by_fp_type(all_results, top_n=6)
+        total_score, scored_functions = calculate_fp_score(filtered_results)
+
         logger.info(f"FP 점수 계산 완료 - Total Score: {total_score}, Function Count: {len(scored_functions)}")
 
         logger.info(f"응답 반환 - project_id: {project_id}")
@@ -76,3 +79,25 @@ async def fp_infer_with_pdf(
     except Exception as e:
         logger.exception("OCR 및 FP 추론 실패")
         raise HTTPException(status_code=500, detail=f"OCR 및 FP 추론 실패: {str(e)}")
+
+from collections import defaultdict
+
+def filter_top_n_by_fp_type(fp_results: list, top_n: int = 6):
+    grouped = defaultdict(list)
+
+    for func in fp_results:
+        fp_type = getattr(func, "fp_type", None)
+        if fp_type:
+            grouped[fp_type].append(func)
+
+    filtered_functions = []
+    for fp_type, funcs in grouped.items():
+        # det + ftr 기준 정렬
+        sorted_funcs = sorted(
+            funcs,
+            key=lambda x: (getattr(x, "estimated_det", 0) + getattr(x, "estimated_ftr", 0)),
+            reverse=True
+        )
+        filtered_functions.extend(sorted_funcs[:top_n])
+
+    return filtered_functions

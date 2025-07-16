@@ -33,6 +33,6 @@ pdf2image
 Pillow
 python-multipart
 
-cv2
+opencv-python
 numpy
 

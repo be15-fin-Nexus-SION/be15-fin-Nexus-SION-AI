@@ -7,11 +7,13 @@ import asyncio
 
 router = APIRouter()
 
-logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()  # root logger
 
 @router.post("/fp-freelancer-infer", response_model=FreelencerFpInferResponse)
 async def infer_freelancer_fp(file: UploadFile = File(...)):
+    logger.info("🔥 [1] 라우터 진입 성공")
+
     try:
         logger.info(f"[START] 프리랜서 FP 추론 요청 수신")
         content = await file.read()

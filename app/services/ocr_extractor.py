@@ -6,6 +6,8 @@ from typing import List, Dict
 import re
 from app.utils.preprocess_image import preprocess_image
 
+import asyncio
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -21,35 +23,43 @@ def is_meaningful(sentence: str) -> bool:
 
 def is_fp_candidate(sentence: str) -> bool:
     fp_keywords = [
-        "등록", "조회", "삭제", "입력", "수정", "출력", "생성", "검색", "확인",
-        "제출", "제공", "연동", "저장", "업로드", "다운로드", "로그인", "변경", "구성", "구현", "관리"
+        "등록", "조회", "삭제", "입력", "수정", "출력", "생성", "검색"
+        "연동", "저장", "업로드", "다운로드", "로그인"
     ]
     return any(k in sentence for k in fp_keywords)
 
-def extract_function_sentences_from_pdf(content: bytes) -> List[str]:
-    images = convert_from_bytes(content, dpi=400)
+async def ocr_page(image) -> str:
+    custom_config = "--oem 3 --psm 4"
+    # OCR 비동기 호출
+    text = await asyncio.to_thread(pytesseract.image_to_string, image, "kor+eng", custom_config)
+    return text
+
+async def extract_function_sentences_from_pdf(content: bytes) -> List[str]:
+    images = convert_from_bytes(content)
     logger.info(f"[OCR] PDF → 이미지 변환 완료 - 페이지 수: {len(images)}")
 
     if not images:
         raise ValueError("PDF에서 이미지를 추출할 수 없습니다.")
 
+    tasks = [ocr_page(image) for image in images]
+    ocr_results = await asyncio.gather(*tasks)
+
     ocr_texts = []
 
-    for idx, image in enumerate(images):
-        custom_config = "--oem 3 --psm 4"
-        text = pytesseract.image_to_string(image, lang="kor+eng", config=custom_config)
-        logger.info(f"[OCR TEXT] 페이지 {idx + 1} OCR 결과:\n{text}")
+    for idx, text in enumerate(ocr_results):
+        # custom_config = "--oem 3 --psm 4"
+        # text = pytesseract.image_to_string(image, lang="kor+eng", config=custom_config)
+        # logger.info(f"[OCR TEXT] 페이지 {idx + 1} OCR 결과:\n{text}")
 
         lines = [line.strip() for line in text.split("\n") if line.strip()]
         grouped_blocks = []
         current_block = []
 
         for line in lines:
-            # 앞쪽 특수문자/숫자 제거하고 글자만 남기기
             cleaned = re.sub(r"^[^가-힣a-zA-Z]+", "", line).strip()
 
             if not cleaned:
-                continue  # 제거하고 남은 게 없으면 무시
+                continue
 
             if current_block:
                 grouped_blocks.append(" ".join(current_block))
