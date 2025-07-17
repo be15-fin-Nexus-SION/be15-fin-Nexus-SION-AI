@@ -2,9 +2,16 @@ from app.chains.chains import rag_chain, fallback_chain
 from app.utils.parser import extract_result_text, postprocess_llm_output, parse_fp_response_for_inference
 from app.models.schema import FPResult
 import asyncio
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 async def run_fp_inference(ocr_text: str) -> list[FPResult]:
+    logger.info("[진행] LLM.invoke 호출 직전")
     raw_output = await asyncio.to_thread(rag_chain.invoke, {"query": ocr_text})
+    logger.info("[완료] LLM.invoke 호출 성공")
+    logger.info(f"raw_out: {raw_output}")
 
     result_text = extract_result_text(raw_output)
     parsed = postprocess_llm_output(result_text)

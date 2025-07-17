@@ -29,10 +29,20 @@ def is_fp_candidate(sentence: str) -> bool:
     return any(k in sentence for k in fp_keywords)
 
 async def ocr_page(image) -> str:
+    logger.info("[OCR_PAGE] 개별 페이지 OCR 시작")
     custom_config = "--oem 3 --psm 4"
-    # OCR 비동기 호출
-    text = await asyncio.to_thread(pytesseract.image_to_string, image, "kor+eng", custom_config)
-    return text
+    try:
+        text = await asyncio.to_thread(
+            pytesseract.image_to_string,
+            image,
+            lang="kor+eng",
+            config=custom_config
+        )
+        logger.info("[OCR_PAGE] 개별 페이지 OCR 완료")
+        return text
+    except Exception as e:
+        logger.exception(f"[OCR_PAGE] 개별 페이지 OCR 실패: {e}")
+        return ""
 
 async def extract_function_sentences_from_pdf(content: bytes) -> List[str]:
     images = convert_from_bytes(content)
@@ -43,13 +53,11 @@ async def extract_function_sentences_from_pdf(content: bytes) -> List[str]:
 
     tasks = [ocr_page(image) for image in images]
     ocr_results = await asyncio.gather(*tasks)
+    logger.info(f"[OCR 결과] : {ocr_results}")
 
     ocr_texts = []
 
     for idx, text in enumerate(ocr_results):
-        # custom_config = "--oem 3 --psm 4"
-        # text = pytesseract.image_to_string(image, lang="kor+eng", config=custom_config)
-        # logger.info(f"[OCR TEXT] 페이지 {idx + 1} OCR 결과:\n{text}")
 
         lines = [line.strip() for line in text.split("\n") if line.strip()]
         grouped_blocks = []
