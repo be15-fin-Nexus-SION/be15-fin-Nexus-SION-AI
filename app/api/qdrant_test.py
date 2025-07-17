@@ -4,8 +4,8 @@ import os
 
 router = APIRouter()
 
-qdrant_host = os.getenv("QDRANT_HOST", "qdrant.fastapi.svc.cluster.local")
-qdrant_port = int(os.getenv("QDRANT_PORT", 6333))
+qdrant_host = os.getenv("QDRANT_HOST", "localhost")
+qdrant_port = int(os.getenv("QDRANT_PORT"))
 
 qdrant_client = QdrantClient(host=qdrant_host, port=qdrant_port)
 
