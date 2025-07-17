@@ -1,0 +1,38 @@
+# .env 로딩
+python-dotenv
+
+# FastAPI 백엔드
+fastapi
+uvicorn
+pydantic
+requests
+
+# LangChain 핵심
+langchain
+langchain-community
+langchain-huggingface
+
+# HuggingFace 모델
+huggingface_hub
+
+# 임베딩 및 벡터스토어
+sentence-transformers
+qdrant-client
+
+# Gemini API
+google-ai-generativelanguage==0.6.18
+langchain-google-genai
+
+# 기타
+tiktoken
+tqdm
+
+# OCR 및 PDF to Image 변환
+pytesseract
+pdf2image
+Pillow
+python-multipart
+
+opencv-python-headless
+numpy
+
