@@ -4,6 +4,8 @@ from app.api.fp_embed import router as fp_embed_router
 from app.api.fp_freelencer_infer import router as fp_freelancer_infer
 from app.api.llm_test import router as llm_test_router
 from app.api.qdrant_test import router as qdrant_test_router
+from app.scripts.fp_generate_embedding import process_and_upload_to_qdrant
+
 
 import logging
 import sys
