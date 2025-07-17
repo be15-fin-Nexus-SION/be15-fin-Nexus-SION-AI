@@ -9,14 +9,14 @@ import logging
 from app.services.ocr_extractor import extract_function_sentences_from_pdf
 
 import multiprocessing
+import sys
 
 if __name__ == "__main__":
     multiprocessing.set_start_method("spawn")
 
 router = APIRouter()
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger()  # root logger
+logger = logging.getLogger(__name__)
 
 @router.post("/fp-infer", response_model=FPInferResponse)
 async def fp_infer_with_pdf(
@@ -32,7 +32,6 @@ async def fp_infer_with_pdf(
 
         if not images:
             raise HTTPException(status_code=400, detail="PDF에서 이미지를 추출할 수 없습니다.")
-
         ocr_texts = await extract_function_sentences_from_pdf(content)
         logger.info(f"OCR 전체 문장 수: {len(ocr_texts)}")
 
