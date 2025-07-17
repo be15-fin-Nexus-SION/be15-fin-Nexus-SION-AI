@@ -3,10 +3,6 @@ FROM python:3.11-slim
 # 작업 디렉토리 설정
 WORKDIR /app
 
-ENV PYTHONUNBUFFERED=1
-ENV GOOGLE_API_KEY=AIzaSyBdcpcglZpFB9Jsk8W0XM1K3Qity316d6Q
-ENV TOKENIZERS_PARALLELISM=false
-
 # 시스템 패키지 설치 (OCR, PDF 처리 포함)
 RUN apt-get update && apt-get install -y \
     gcc \
