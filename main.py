@@ -24,7 +24,7 @@ logger.info("FastAPI 서버가 main.py에서 정상 실행 중입니다.")
 @app.on_event("startup")
 async def startup_event():
     logger.info("FastAPI 서버 시작됨, Qdrant 초기화 시작")
-    process_and_upload_to_qdrant()
+    await process_and_upload_to_qdrant()
     logger.info("Qdrant 초기화 완료 후 서버 구동 준비 완료")
 
 app.include_router(fp_router)
