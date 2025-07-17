@@ -14,7 +14,7 @@ from langchain.schema import HumanMessage, Document
 import logging
 logger = logging.getLogger(__name__)
 
-def process_and_upload_to_qdrant():
+async def process_and_upload_to_qdrant():
     load_dotenv()
 
     DATA_DIR = "app/data/requirements"
