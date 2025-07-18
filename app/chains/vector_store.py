@@ -5,10 +5,10 @@ import os
 
 embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-qdrant_host = os.getenv("QDRANT_HOST", "qdrant.fastapi.svc.cluster.local")
+qdrant_host = os.getenv("QDRANT_HOST", "localhost")
 qdrant_port = int(os.getenv("QDRANT_PORT", 6333))
 
-client = QdrantClient(host="qdrant-container", port=6333)
+client = QdrantClient(host=qdrant_host, port=6333)
 
 vectorstore = Qdrant(
     client=client,
