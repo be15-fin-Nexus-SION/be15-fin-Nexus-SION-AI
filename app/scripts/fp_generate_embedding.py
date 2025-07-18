@@ -54,17 +54,27 @@ prompt_template = """
 async def process_and_upload_to_qdrant():
     parsed_fp_results = []
 
+    print(f"📄 처리할 PDF 파일 목록: {PDF_FILES}")
+
     for file in tqdm(PDF_FILES, desc="PDF 처리 중"):
+        print(f"➡️ 현재 파일 처리 시작: {file}")
         with open(os.path.join(DATA_DIR, file), "rb") as f:
             pdf_bytes = f.read()
+        print(f"✅ PDF 파일 읽기 완료: {file}")
 
         sentences = await extract_function_sentences_from_pdf(pdf_bytes)
+        print(f"✅ 문장 추출 완료: 총 {len(sentences)} 문장")
 
-        for s in tqdm(sentences, desc=f"→ {file} 문장 처리 중", leave=False):
+        for idx, s in enumerate(tqdm(sentences, desc=f"→ {file} 문장 처리 중", leave=False)):
             try:
+                print(f"🟣 문장 {idx+1}/{len(sentences)} 처리 중: {s[:30]}...")
+
                 user_input = prompt_template.format(question=s, context="")
                 res = llm.invoke([HumanMessage(content=user_input)])
+                print(f"✅ LLM 호출 완료")
+
                 results = postprocess_llm_output(res.content)
+                print(f"✅ LLM 응답 파싱 완료")
 
                 if not results:
                     print(f"⚠ JSON 파싱 실패: {s}\n응답 원문:\n{res.content}")
@@ -75,15 +85,16 @@ async def process_and_upload_to_qdrant():
                 parsed_fp_results.append(json_obj)
 
             except Exception as e:
-                print(f"⚠ 문장 처리 실패: {s}\n사유: {e}")
+                print(f"❌ 문장 처리 중 에러 발생: {e}")
                 continue
 
-    # JSON 저장
+    print(f"✅ 전체 문장 처리 완료, 총 {len(parsed_fp_results)} 건 결과 저장 시작")
+
     os.makedirs("app/data", exist_ok=True)
     with open("app/data/fp_generated_dataset.json", "w", encoding="utf-8") as f:
         json.dump(parsed_fp_results, f, ensure_ascii=False, indent=2)
+    print(f"✅ JSON 저장 완료")
 
-    # Qdrant 업로드
     documents = [
         Document(
             page_content=ex["description"],
@@ -97,18 +108,19 @@ async def process_and_upload_to_qdrant():
         )
         for ex in parsed_fp_results
     ]
+    print(f"✅ Document 변환 완료: 총 {len(documents)}건")
 
     embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    print(f"✅ Embedding 모델 로드 완료")
 
-    # qdrant_host = os.getenv("QDRANT_HOST", "qdrant.fastapi.svc.cluster.local")
-    # qdrant_port = int(os.getenv("QDRANT_PORT", 6333))
-    # client = QdrantClient(host=qdrant_host, port=qdrant_port)
     client = QdrantClient(host="localhost", port=6333)
+    print(f"✅ Qdrant 클라이언트 생성 완료")
 
     client.recreate_collection(
         collection_name="fp_examples",
         vectors_config={"size": 384, "distance": "Cosine"}
     )
+    print(f"✅ Qdrant 컬렉션 초기화 완료")
 
     vectorstore = Qdrant(
         client=client,
@@ -116,5 +128,5 @@ async def process_and_upload_to_qdrant():
         embeddings=embedding
     )
     vectorstore.add_documents(documents)
+    print(f"✅ Qdrant 업로드 완료 - 총 {len(documents)}건 완료됨")
 
-    print(f"Qdrant 업로드 완료 - 총 {len(documents)}건 완료됨")
