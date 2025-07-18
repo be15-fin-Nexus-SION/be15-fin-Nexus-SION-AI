@@ -35,7 +35,7 @@ async def fp_infer_with_pdf(
         ocr_texts = await extract_function_sentences_from_pdf(content)
         logger.info(f"OCR 전체 문장 수: {len(ocr_texts)}")
 
-        semaphore = asyncio.Semaphore(4)
+        semaphore = asyncio.Semaphore(3)
 
         # 병렬로 처리할 함수 정의 (idx 포함)
         async def safe_run(idx: int, sentence: str):
