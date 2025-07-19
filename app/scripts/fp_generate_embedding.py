@@ -113,7 +113,10 @@ async def process_and_upload_to_qdrant():
     embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     print(f"✅ Embedding 모델 로드 완료")
 
-    client = QdrantClient(host="localhost", port=6333)
+    qdrant_host = os.getenv("QDRANT_HOST", "localhost")
+    qdrant_port = int(os.getenv("QDRANT_PORT"))
+
+    client = QdrantClient(host=qdrant_host, port=qdrant_port)
     print(f"✅ Qdrant 클라이언트 생성 완료")
 
     client.recreate_collection(
