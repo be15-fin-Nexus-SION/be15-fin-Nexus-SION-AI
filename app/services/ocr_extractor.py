@@ -28,10 +28,12 @@ def is_fp_candidate(sentence: str) -> bool:
     ]
     return any(k in sentence for k in fp_keywords)
 
+
 async def ocr_page(image) -> str:
     logger.info("[OCR_PAGE] 개별 페이지 OCR 시작")
-    custom_config = "--oem 3 --psm 4"
+    custom_config = "--oem 3 --psm 3"
     try:
+        image = preprocess_image(image)
         text = await asyncio.to_thread(
             pytesseract.image_to_string,
             image,
@@ -88,7 +90,7 @@ async def extract_function_sentences_from_pdf(content: bytes) -> List[str]:
     return ocr_texts
 
 def extract_function_blocks_from_pdf(content: bytes) -> List[Dict[str, str]]:
-    images = convert_from_bytes(content, dpi=400)
+    images = convert_from_bytes(content, dpi=150)
     logger.info(f"[OCR] PDF → 이미지 변환 완료 - 페이지 수: {len(images)}")
 
     if not images:
